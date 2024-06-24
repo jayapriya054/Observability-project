@@ -14,13 +14,13 @@ metadata:
     chart: kube-prometheus-stack-60.3.0
     heritage: Helm
     release: monitoring-stack
-  name: nginx
+  name: mysql
   namespace: default
 spec:
   endpoints:
   - enableHttp2: true
   - path: /metrics
-    port: metrics  # service lable name
+    port: metricsmysql  # service label name
   namespaceSelector:
     matchNames:
     - default
