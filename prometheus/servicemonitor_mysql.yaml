@@ -20,7 +20,7 @@ spec:
   endpoints:
   - enableHttp2: true
   - path: /metrics
-    port: metricsmysql  # service label name
+    port: metrics  # service label name
   namespaceSelector:
     matchNames:
     - default
