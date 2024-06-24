@@ -26,8 +26,10 @@ spec:
     - default
   selector:
     matchLabels:
-      app.kubernetes.io/instance: nginx
+      app.kubernetes.io/component: metrics
+      app.kubernetes.io/instance: mysql
       app.kubernetes.io/managed-by: Helm
-      app.kubernetes.io/name: nginx
-      app.kubernetes.io/version: 1.27.0
-      helm.sh/chart: nginx-18.1.2
+      app.kubernetes.io/name: mysql
+      app.kubernetes.io/version: 8.4.0
+      helm.sh/chart: mysql-11.1.4
+     
