@@ -11,15 +11,15 @@ slos:
     description: "Common SLO based on availability for HTTP request responses of mginx."
     sli:
       events:
-        error_query: sum(rate(promhttp_metric_handler_requests_total{job="myservice",code=~"(5..|429)"}[{{.window}}]))
-        total_query: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+        error_query: sum(rate(promhttp_metric_handler_requests_total{job="nginxdata",code=~"(5..|429)"}[{{.window}}]))
+        total_query: sum(rate(promhttp_metric_handler_requests_total{job="nginxdata"}[{{.window}}]))
     alerting:
-      name: MyServiceHighErrorRate
+      name: mywebsitenginxHighErrorRate
       labels:
         category: "availability"
       annotations:
         # Overwrite default Sloth SLO alert summmary on ticket and page alerts.
-        summary: "High error rate on 'myservice' requests responses"
+        summary: "High error rate on 'mywebsite-nginx' requests responses"
       page_alert:
         labels:
           severity: pageteam
