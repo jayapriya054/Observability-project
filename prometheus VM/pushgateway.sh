@@ -1,5 +1,5 @@
 
-#!/bin/bas
+#!/bin/bash
 
 while true; do
   # Fetch the load averages
