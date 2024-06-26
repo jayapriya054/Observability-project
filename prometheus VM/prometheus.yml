@@ -1,3 +1,4 @@
+
 # my global config
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
@@ -48,3 +49,6 @@ scrape_configs:
 
     static_configs:
       - targets: ["54.149.163.93:9091"]
+  - job_name: "mysql"
+    static_configs:
+      - targets: ['52.27.26.3:9104'] 
