@@ -5,7 +5,7 @@ labels:
   repo: "myorg/myservice"
   tier: "2"
 slos:
-  # Availability SLO
+  # Availability SLO for NGINX
   - name: "requests-availability-nginx"
     objective: 99.9
     description: "Common SLO based on availability for HTTP request responses of nginx."
@@ -65,6 +65,38 @@ slos:
         category: "latency"
       annotations:
         summary: "High latency on 'mywebsite-nginx' Go garbage collection duration"
+      page_alert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+      ticket_alert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
+
+# Adding Availability SLO for MySQL Service
+---
+version: "prometheus/v1"
+service: "mywebsite-mysql-SLO"
+labels:
+  owner: "devOpsteam"
+  repo: "myorg/myservice"
+  tier: "2"
+slos:
+  # Availability SLO for MySQL
+  - name: "mysql-availability"
+    objective: 99.9
+    description: "Common SLO based on availability for MySQL service."
+    sli:
+      events:
+        error_query: sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[{{.window}}]))
+        total_query: sum(rate(mysql_global_status_connections{job="mysqldata"}[{{.window}}]))
+    alerting:
+      name: mywebsiteMySQLHighErrorRate
+      labels:
+        category: "availability"
+      annotations:
+        summary: "High error rate on 'mywebsite-mysql' connections"
       page_alert:
         labels:
           severity: pageteam
