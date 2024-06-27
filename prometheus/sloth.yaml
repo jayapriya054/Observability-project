@@ -105,3 +105,4 @@ slos:
         labels:
           severity: "slack"
           slack_channel: "#alerts-myteam"
+    
