@@ -1,0 +1,75 @@
+version: "prometheus/v1"
+service: "mywebsite-nginx-SLO"
+labels:
+  owner: "devOpsteam"
+  repo: "myorg/myservice"
+  tier: "2"
+slos:
+  # Availability SLO
+  - name: "requests-availability-nginx"
+    objective: 99.9
+    description: "Common SLO based on availability for HTTP request responses of nginx."
+    sli:
+      events:
+        error_query: sum(rate(promhttp_metric_handler_requests_total{job="nginxdata",code=~"(5..|429)"}[{{.window}}]))
+        total_query: sum(rate(promhttp_metric_handler_requests_total{job="nginxdata"}[{{.window}}]))
+    alerting:
+      name: mywebsitenginxHighErrorRate
+      labels:
+        category: "availability"
+      annotations:
+        summary: "High error rate on 'mywebsite-nginx' requests responses"
+      page_alert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+      ticket_alert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
+
+  # Latency SLO for HTTP Request Duration
+  - name: "http-request-latency-nginx"
+    objective: 99.0
+    description: "SLO based on latency for HTTP request duration of nginx."
+    sli:
+      events:
+        error_query: sum(rate(http_request_duration_seconds_sum{job="nginxdata"}[{{.window}}])) / sum(rate(http_request_duration_seconds_count{job="nginxdata"}[{{.window}}]))
+        total_query: sum(rate(http_request_duration_seconds_count{job="nginxdata"}[{{.window}}]))
+    alerting:
+      name: mywebsitenginxHighLatency
+      labels:
+        category: "latency"
+      annotations:
+        summary: "High latency on 'mywebsite-nginx' HTTP request duration"
+      page_alert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+      ticket_alert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
+
+  # Latency SLO for Go GC Duration
+  - name: "go-gc-latency-nginx"
+    objective: 99.0
+    description: "SLO based on latency for Go garbage collection duration."
+    sli:
+      events:
+        error_query: sum(rate(go_gc_duration_seconds_sum{job="nginxdata"}[{{.window}}])) / sum(rate(go_gc_duration_seconds_count{job="nginxdata"}[{{.window}}]))
+        total_query: sum(rate(go_gc_duration_seconds_count{job="nginxdata"}[{{.window}}]))
+    alerting:
+      name: mywebsiteGoGCHighLatency
+      labels:
+        category: "latency"
+      annotations:
+        summary: "High latency on 'mywebsite-nginx' Go garbage collection duration"
+      page_alert:
+        labels:
+          severity: pageteam
+          routing_key: myteam
+      ticket_alert:
+        labels:
+          severity: "slack"
+          slack_channel: "#alerts-myteam"
