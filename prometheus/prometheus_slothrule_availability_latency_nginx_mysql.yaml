@@ -17,7 +17,7 @@ metadata:
   namespace: default
 spec:
   groups:
-- name: sloth-slo-sli-recordings-mywebsite-nginx-SLO-requests-availability-nginx
+  - name: sloth-slo-sli-recordings-mywebsite-nginx-SLO-requests-availability-nginx
   rules:
   - record: slo:sli_error:ratio_rate5m
     expr: |
@@ -1173,4 +1173,7 @@ groups:
       summary: High latency on 'mywebsite-mysql' Go garbage collection duration
       title: (ticket) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
         burn rate is too fast.
+INFO[0000] Prometheus rules written                      format=yaml groups=6 out=- svc=storage.IOWriter version=0.11.0 window=30d
+(base) jayapriyam@Jayapriyas-Air downloads % 
 
+  
