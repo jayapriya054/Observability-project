@@ -1,4 +1,25 @@
-
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  annotations:
+    meta.helm.sh/release-name: monitoring-stack
+    meta.helm.sh/release-namespace: default
+  creationTimestamp: "2024-06-21T17:32:09Z"
+  generation: 1
+  labels:
+    app: kube-prometheus-stack
+    app.kubernetes.io/instance: monitoring-stack
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: kube-prometheus-stack
+    app.kubernetes.io/version: 60.3.0
+    chart: kube-prometheus-stack-60.3.0
+    heritage: Helm
+    release: monitoring-stack
+  name: monitoring-stack-kube-prom-node.rules
+  namespace: default
+  resourceVersion: "872013"
+  uid: eabe5914-5af3-48b4-a775-ab5d93390f6a
+spec:
   groups:
 - name: sloth-slo-sli-recordings-mywebsite-nginx-SLO-requests-availability-nginx
   rules:
