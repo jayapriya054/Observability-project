@@ -74,7 +74,6 @@ slos:
           severity: "slack"
           slack_channel: "#alerts-myteam"
 
-  # Adding Availability SLO for MySQL Service
 ---
 version: "prometheus/v1"
 service: "mywebsite-mysql-SLO"
@@ -112,14 +111,14 @@ slos:
     description: "SLO based on latency for Go garbage collection duration."
     sli:
       events:
-        error_query: sum(rate(go_gc_duration_seconds_sum{job="mysql"}[{{.window}}])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[{{.window}}]))
-        total_query: sum(rate(go_gc_duration_seconds_count{job="mydql"}[{{.window}}]))
+        error_query: sum(rate(go_gc_duration_seconds_sum{job="mysqldata"}[{{.window}}])) / sum(rate(go_gc_duration_seconds_count{job="mysqldata"}[{{.window}}]))
+        total_query: sum(rate(go_gc_duration_seconds_count{job="mysqldata"}[{{.window}}]))
     alerting:
       name: mywebsiteGoGCHighLatency
       labels:
         category: "latency"
       annotations:
-        summary: "High latency on 'mywebsite-nginx' Go garbage collection duration"
+        summary: "High latency on 'mywebsite-mysql' Go garbage collection duration"
       page_alert:
         labels:
           severity: pageteam
@@ -128,6 +127,3 @@ slos:
         labels:
           severity: "slack"
           slack_channel: "#alerts-myteam"
-    
-
-
