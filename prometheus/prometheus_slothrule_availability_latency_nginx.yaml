@@ -701,3 +701,512 @@ spec:
       summary: High latency on 'mywebsite-nginx' Go garbage collection duration
       title: (ticket) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
         burn rate is too fast.
+  groups:
+- name: sloth-slo-sli-recordings-mywebsite-mysql-SLO-mysql-availability
+  rules:
+  - record: slo:sli_error:ratio_rate5m
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[5m])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[5m])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 5m
+      tier: "2"
+  - record: slo:sli_error:ratio_rate30m
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[30m])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[30m])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 30m
+      tier: "2"
+  - record: slo:sli_error:ratio_rate1h
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[1h])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[1h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 1h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate2h
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[2h])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[2h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 2h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate6h
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[6h])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[6h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 6h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate1d
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[1d])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[1d])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 1d
+      tier: "2"
+  - record: slo:sli_error:ratio_rate3d
+    expr: |
+      (sum(rate(mysql_global_status_aborted_connects{job="mysqldata"}[3d])))
+      /
+      (sum(rate(mysql_global_status_connections{job="mysqldata"}[3d])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 3d
+      tier: "2"
+  - record: slo:sli_error:ratio_rate30d
+    expr: |
+      sum_over_time(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}[30d])
+      / ignoring (sloth_window)
+      count_over_time(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}[30d])
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_window: 30d
+      tier: "2"
+- name: sloth-slo-meta-recordings-mywebsite-mysql-SLO-mysql-availability
+  rules:
+  - record: slo:objective:ratio
+    expr: vector(0.9990000000000001)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: slo:error_budget:ratio
+    expr: vector(1-0.9990000000000001)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: slo:time_period:days
+    expr: vector(30)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: slo:current_burn_rate:ratio
+    expr: |
+      slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}
+      / on(sloth_id, sloth_slo, sloth_service) group_left
+      slo:error_budget:ratio{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: slo:period_burn_rate:ratio
+    expr: |
+      slo:sli_error:ratio_rate30d{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}
+      / on(sloth_id, sloth_slo, sloth_service) group_left
+      slo:error_budget:ratio{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: slo:period_error_budget_remaining:ratio
+    expr: 1 - slo:period_burn_rate:ratio{sloth_id="mywebsite-mysql-SLO-mysql-availability",
+      sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      tier: "2"
+  - record: sloth_slo_info
+    expr: vector(1)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-mysql-availability
+      sloth_mode: cli-gen-prom
+      sloth_objective: "99.9"
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: mysql-availability
+      sloth_spec: prometheus/v1
+      sloth_version: 0.11.0
+      tier: "2"
+- name: sloth-slo-alerts-mywebsite-mysql-SLO-mysql-availability
+  rules:
+  - alert: mywebsiteMySQLHighErrorRate
+    expr: |
+      (
+          max(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (14.4 * 0.0009999999999999432)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate1h{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (14.4 * 0.0009999999999999432)) without (sloth_window)
+      )
+      or
+      (
+          max(slo:sli_error:ratio_rate30m{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (6 * 0.0009999999999999432)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate6h{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (6 * 0.0009999999999999432)) without (sloth_window)
+      )
+    labels:
+      category: availability
+      routing_key: myteam
+      severity: pageteam
+      sloth_severity: page
+    annotations:
+      summary: High error rate on 'mywebsite-mysql' connections
+      title: (page) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
+        burn rate is too fast.
+  - alert: mywebsiteMySQLHighErrorRate
+    expr: |
+      (
+          max(slo:sli_error:ratio_rate2h{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (3 * 0.0009999999999999432)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate1d{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (3 * 0.0009999999999999432)) without (sloth_window)
+      )
+      or
+      (
+          max(slo:sli_error:ratio_rate6h{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (1 * 0.0009999999999999432)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate3d{sloth_id="mywebsite-mysql-SLO-mysql-availability", sloth_service="mywebsite-mysql-SLO", sloth_slo="mysql-availability"} > (1 * 0.0009999999999999432)) without (sloth_window)
+      )
+    labels:
+      category: availability
+      severity: slack
+      slack_channel: '#alerts-myteam'
+      sloth_severity: ticket
+    annotations:
+      summary: High error rate on 'mywebsite-mysql' connections
+      title: (ticket) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
+        burn rate is too fast.
+- name: sloth-slo-sli-recordings-mywebsite-mysql-SLO-go-gc-latency-mysql
+  rules:
+  - record: slo:sli_error:ratio_rate5m
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[5m])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[5m])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[5m])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 5m
+      tier: "2"
+  - record: slo:sli_error:ratio_rate30m
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[30m])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[30m])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[30m])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 30m
+      tier: "2"
+  - record: slo:sli_error:ratio_rate1h
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[1h])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[1h])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[1h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 1h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate2h
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[2h])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[2h])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[2h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 2h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate6h
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[6h])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[6h])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[6h])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 6h
+      tier: "2"
+  - record: slo:sli_error:ratio_rate1d
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[1d])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[1d])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[1d])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 1d
+      tier: "2"
+  - record: slo:sli_error:ratio_rate3d
+    expr: |
+      (sum(rate(go_gc_duration_seconds_sum{job="mysql"}[3d])) / sum(rate(go_gc_duration_seconds_count{job="mysql"}[3d])))
+      /
+      (sum(rate(go_gc_duration_seconds_count{job="mydql"}[3d])))
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 3d
+      tier: "2"
+  - record: slo:sli_error:ratio_rate30d
+    expr: |
+      sum_over_time(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}[30d])
+      / ignoring (sloth_window)
+      count_over_time(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}[30d])
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_window: 30d
+      tier: "2"
+- name: sloth-slo-meta-recordings-mywebsite-mysql-SLO-go-gc-latency-mysql
+  rules:
+  - record: slo:objective:ratio
+    expr: vector(0.99)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: slo:error_budget:ratio
+    expr: vector(1-0.99)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: slo:time_period:days
+    expr: vector(30)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: slo:current_burn_rate:ratio
+    expr: |
+      slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}
+      / on(sloth_id, sloth_slo, sloth_service) group_left
+      slo:error_budget:ratio{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: slo:period_burn_rate:ratio
+    expr: |
+      slo:sli_error:ratio_rate30d{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}
+      / on(sloth_id, sloth_slo, sloth_service) group_left
+      slo:error_budget:ratio{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: slo:period_error_budget_remaining:ratio
+    expr: 1 - slo:period_burn_rate:ratio{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql",
+      sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"}
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      tier: "2"
+  - record: sloth_slo_info
+    expr: vector(1)
+    labels:
+      owner: devOpsteam
+      repo: myorg/myservice
+      sloth_id: mywebsite-mysql-SLO-go-gc-latency-mysql
+      sloth_mode: cli-gen-prom
+      sloth_objective: "99"
+      sloth_service: mywebsite-mysql-SLO
+      sloth_slo: go-gc-latency-mysql
+      sloth_spec: prometheus/v1
+      sloth_version: 0.11.0
+      tier: "2"
+- name: sloth-slo-alerts-mywebsite-mysql-SLO-go-gc-latency-mysql
+  rules:
+  - alert: mywebsiteGoGCHighLatency
+    expr: |
+      (
+          max(slo:sli_error:ratio_rate5m{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (14.4 * 0.01)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate1h{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (14.4 * 0.01)) without (sloth_window)
+      )
+      or
+      (
+          max(slo:sli_error:ratio_rate30m{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (6 * 0.01)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate6h{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (6 * 0.01)) without (sloth_window)
+      )
+    labels:
+      category: latency
+      routing_key: myteam
+      severity: pageteam
+      sloth_severity: page
+    annotations:
+      summary: High latency on 'mywebsite-nginx' Go garbage collection duration
+      title: (page) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
+        burn rate is too fast.
+  - alert: mywebsiteGoGCHighLatency
+    expr: |
+      (
+          max(slo:sli_error:ratio_rate2h{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (3 * 0.01)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate1d{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (3 * 0.01)) without (sloth_window)
+      )
+      or
+      (
+          max(slo:sli_error:ratio_rate6h{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (1 * 0.01)) without (sloth_window)
+          and
+          max(slo:sli_error:ratio_rate3d{sloth_id="mywebsite-mysql-SLO-go-gc-latency-mysql", sloth_service="mywebsite-mysql-SLO", sloth_slo="go-gc-latency-mysql"} > (1 * 0.01)) without (sloth_window)
+      )
+    labels:
+      category: latency
+      severity: slack
+      slack_channel: '#alerts-myteam'
+      sloth_severity: ticket
+    annotations:
+      summary: High latency on 'mywebsite-nginx' Go garbage collection duration
+      title: (ticket) {{$labels.sloth_service}} {{$labels.sloth_slo}} SLO error budget
+        burn rate is too fast.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
