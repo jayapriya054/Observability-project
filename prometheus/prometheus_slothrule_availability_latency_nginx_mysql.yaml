@@ -1,4 +1,5 @@
-groups:
+
+  groups:
 - name: sloth-slo-sli-recordings-mywebsite-nginx-SLO-requests-availability-nginx
   rules:
   - record: slo:sli_error:ratio_rate5m
